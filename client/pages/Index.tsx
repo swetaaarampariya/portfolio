@@ -569,6 +569,19 @@ export default function Index() {
     }, 2000);
   };
 
+  // Download resume functionality
+  const handleDownloadResume = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = "/Sweta's Resume.pdf";
+    link.download = "Sweta_Rampariya_Resume.pdf";
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
 
   const skills = [
@@ -738,12 +751,21 @@ export default function Index() {
           className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50"
         >
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <motion.h2
+            <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
+              className="flex items-center gap-2"
             >
-              Portfolio
-            </motion.h2>
+              <motion.img
+                src="/logo.png"
+                alt="Sweta Rampariya"
+                className="h-8 w-8 rounded-full"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              />
+              <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                Sweta Rampariya
+              </h2>
+            </motion.div>
             <div className="flex items-center gap-6">
               {["About", "Skills", "Projects", "Experience", "Contact"].map(
                 (item, index) => {
@@ -950,6 +972,7 @@ export default function Index() {
                 <Button
                   size="lg"
                   className="text-lg px-8 relative overflow-hidden group"
+                  onClick={handleDownloadResume}
                 >
                   <motion.div
                     initial={{ x: "-100%" }}
