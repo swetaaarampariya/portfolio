@@ -19,7 +19,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -468,6 +467,7 @@ export default function Index() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isThemeAnimating, setIsThemeAnimating] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+
   const { scrollYProgress } = useScroll();
   const controls = useAnimation();
   const themeButtonRef = useRef(null);
@@ -568,6 +568,8 @@ export default function Index() {
       setIsThemeAnimating(false);
     }, 2000);
   };
+
+
 
   const skills = [
     { name: "React.js", level: 95 },
@@ -1766,61 +1768,7 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              {/* Quick Contact Form */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                viewport={{ once: true }}
-                className="mt-12 max-w-md mx-auto"
-              >
-                <Card className="relative overflow-hidden">
-                  <motion.div
-                    animate={{
-                      background: [
-                        "linear-gradient(45deg, transparent, rgba(var(--primary), 0.05), transparent)",
-                        "linear-gradient(45deg, transparent, rgba(var(--primary), 0.1), transparent)",
-                        "linear-gradient(45deg, transparent, rgba(var(--primary), 0.05), transparent)",
-                      ],
-                    }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                    className="absolute inset-0"
-                  />
-                  <CardHeader className="relative z-10">
-                    <CardTitle className="text-center">Send a Quick Message</CardTitle>
-                    <CardDescription className="text-center">
-                      I'll get back to you within 24 hours
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="relative z-10 space-y-4">
-                    <div>
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Your name" />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="your.email@example.com" />
-                    </div>
-                    <div>
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="Tell me about your project..."
-                        rows={4}
-                      />
-                    </div>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Button className="w-full" size="lg">
-                        <Mail className="mr-2 h-4 w-4" />
-                        Send Message
-                      </Button>
-                    </motion.div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+
             </div>
           </motion.div>
         </section>
