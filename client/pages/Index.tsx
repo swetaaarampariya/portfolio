@@ -21,6 +21,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import {
   Github,
   Linkedin,
   Mail,
@@ -569,10 +586,40 @@ export default function Index() {
 
   const projects = [
     {
+      title: "Crest Connect – Property Management System",
+      description:
+        "A comprehensive web and mobile-based property management platform for streamlining property, user, and shift management.",
+      detailedDescription: "Crest Connect is a web and mobile-based property management platform designed to streamline the management of properties, users, shifts, and employee-related requests. Administrators can create and manage multiple properties and assign users to them with specific shift schedules. The system allows admins to monitor user attendance and manage approvals for various employee requests such as leave applications, reimbursements, overtime, and uniform requests. Each user has access to a mobile application through which they can mark their attendance, apply for leave, submit reimbursement and other requests, and view their shift schedules. The platform enables smooth communication between the admin and field staff, ensuring efficient workforce management and operational transparency.",
+      images: [
+        "/crest/crest1.png",
+        "/crest/crest2.png"
+      ],
+      tech: ["React.js", "React Native", "Node.js", "MongoDB", "Redux"],
+      gradient: "from-indigo-500 to-blue-600",
+    },
+    {
+      title: "Gravitrain – Fitness Training Platform",
+      description:
+        "A web and mobile-based fitness training platform connecting trainers and trainees with three user types.",
+      detailedDescription: "Gravitrain is a web and mobile-based fitness training platform that supports three types of users: Admin, Trainer, and Trainee. Trainers and Trainees can register independently and use the platform to connect with each other. Trainers can create their profiles, add training details, and schedule sessions, while Trainees can search for available trainers in their area and request training sessions. Once a trainer approves the request, the training sessions can be conducted. The platform also includes a built-in chat feature for seamless communication between trainers and trainees. On the admin side, there is a payment settlement module to manage platform fees and a coupon management module for promotional offers.",
+      images: [
+        "/gravitrain/gra1.png",
+        "/gravitrain/gra2.png",
+        "/gravitrain/gra3.png"
+      ],
+      tech: ["React.js", "React Native", "Node.js", "Socket.io", "Payment Gateway"],
+      gradient: "from-emerald-500 to-green-600",
+    },
+    {
       title: "VShips Management System",
       description:
         "Developed shared frontend modules with Material UI, Redux, and Next.js. Architected micro-frontend-compatible structure for cross-project usage.",
-      image: "/placeholder.svg",
+      detailedDescription: "VShips Management System is a comprehensive ship management platform that handles complex maritime operations. I developed shared frontend modules using Material UI, Redux, and Next.js, creating a micro-frontend architecture that enables cross-project reusability. The system includes user management, reporting dashboards, and application modules that can be shared across different ship management projects. The architecture supports independent deployment of frontend modules while maintaining consistency in design and functionality. Key achievements include reducing development time by 40% through reusable components and establishing a scalable component library for future maritime applications.",
+      images: [
+        "/vship1.png",
+        "/vship2.png",
+        "/vship3.png"
+      ],
       tech: ["Next.js", "Material UI", "Redux", "Micro-Frontend"],
       gradient: "from-blue-500 to-purple-600",
     },
@@ -580,7 +627,10 @@ export default function Index() {
       title: "HRMS Portal",
       description:
         "Built responsive UI components using Formik for seamless form handling. Established Jest-based test infrastructure to ensure component reliability.",
-      image: "/placeholder.svg",
+      detailedDescription: "HRMS Portal is a comprehensive Human Resource Management System designed to streamline all HR operations. I built responsive UI components using Formik for seamless form handling, implementing complex validation logic and dynamic form generation. The system includes employee management, attendance tracking, payroll processing, and performance evaluation modules. Established a robust Jest-based test infrastructure that ensures component reliability and reduces UI regression issues by 40%. The portal features advanced filtering, search capabilities, and real-time data synchronization. The responsive design ensures optimal user experience across desktop, tablet, and mobile devices.",
+      images: [
+        "/hrms1.png"
+      ],
       tech: ["React.js", "Formik", "Jest", "Redux"],
       gradient: "from-green-500 to-teal-600",
     },
@@ -588,7 +638,12 @@ export default function Index() {
       title: "TRYME E-Commerce Fashion Platform",
       description:
         "Integrated Square Payment Gateway and implemented advanced UI patterns. Led UI testing and code reviews across the frontend team.",
-      image: "/placeholder.svg",
+      detailedDescription: "TRYME is a modern e-commerce fashion platform that provides a seamless shopping experience for fashion enthusiasts. I integrated Square Payment Gateway for secure and efficient payment processing, implementing advanced UI patterns for product catalog, shopping cart, and checkout flows. The platform features advanced product filtering, size recommendations, and virtual try-on capabilities. Led comprehensive UI testing and code reviews across the frontend team, establishing best practices for component development and state management. The platform includes features like wishlist management, order tracking, and personalized recommendations based on user preferences and browsing history.",
+      images: [
+        "/tryme1.png",
+        "/tryme2.png",
+        "/tryme3.png"
+      ],
       tech: ["React.js", "Styled Components", "Square Payment"],
       gradient: "from-orange-500 to-red-600",
     },
@@ -596,7 +651,13 @@ export default function Index() {
       title: "Medicom",
       description:
         "Developed high-quality SPAs with Vue.js, TypeScript, and Jest. Integrated secure checkout with Stripe, supporting prescription-based ordering logic.",
-      image: "/placeholder.svg",
+      detailedDescription: "Medicom is a healthcare e-commerce platform specializing in prescription medications and medical supplies. I developed high-quality Single Page Applications using Vue.js, TypeScript, and Jest, ensuring type safety and comprehensive testing coverage. The platform integrates secure checkout with Stripe, supporting complex prescription-based ordering logic that validates prescriptions with healthcare providers. Features include medication reminders, dosage tracking, and secure prescription upload. The system implements strict security measures for handling sensitive medical data and complies with healthcare regulations. The platform also includes features for healthcare professionals to manage patient prescriptions and track medication adherence.",
+      images: [
+        "/medicom1.png",
+        "/medicom2.png",
+        "/medicom3.png",
+        "/medicom4.png",
+      ],
       tech: ["Vue.js", "TypeScript", "Stripe", "Jest"],
       gradient: "from-pink-500 to-rose-600",
     },
@@ -1059,7 +1120,7 @@ export default function Index() {
                         transition={{ duration: 0.3 }}
                       />
                       <motion.img
-                        src={project.image}
+                        src={project.images[0]}
                         alt={project.title}
                         className="w-full h-full object-cover relative z-10 mix-blend-overlay"
                         whileHover={{ scale: 1.05 }}
@@ -1085,7 +1146,7 @@ export default function Index() {
                       <CardDescription>{project.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.map((tech, techIndex) => (
                           <motion.div
                             key={techIndex}
@@ -1100,6 +1161,236 @@ export default function Index() {
                           </motion.div>
                         ))}
                       </div>
+                      
+                      {/* View Details Button */}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Button variant="outline" className="w-full">
+                              <ExternalLink className="mr-2 h-4 w-4" />
+                              View Details
+                            </Button>
+                          </motion.div>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="text-2xl font-bold">
+                              {project.title}
+                            </DialogTitle>
+                          </DialogHeader>
+                          
+                          <div className="space-y-6">
+                            {/* Project Image Carousel */}
+                            <div className="relative group">
+                              <Carousel 
+                                className="w-full"
+                                opts={{
+                                  loop: true,
+                                  align: "start",
+                                }}
+                                plugins={[
+                                  Autoplay({
+                                    delay: 3000,
+                                    stopOnInteraction: false,
+                                    stopOnMouseEnter: true,
+                                  }),
+                                ]}
+                              >
+                                <CarouselContent>
+                                  {project.images.map((image, imageIndex) => (
+                                    <CarouselItem key={imageIndex}>
+                                      <div className="relative aspect-video overflow-hidden rounded-lg">
+                                        <motion.div
+                                          className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20`}
+                                        />
+                                        <motion.img
+                                          src={image}
+                                          alt={`${project.title} - Image ${imageIndex + 1}`}
+                                          className="w-full h-full object-cover relative z-10"
+                                          initial={{ scale: 1.1 }}
+                                          whileInView={{ scale: 1 }}
+                                          transition={{ duration: 0.5 }}
+                                        />
+                                        <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-sm">
+                                          {imageIndex + 1} / {project.images.length}
+                                        </div>
+                                        
+                                        {/* Auto-play indicator */}
+                                        <div className="absolute top-4 left-4 bg-black/50 text-white px-2 py-1 rounded text-sm flex items-center gap-1">
+                                          <motion.div
+                                            animate={{ scale: [1, 1.2, 1] }}
+                                            transition={{ duration: 1, repeat: Infinity }}
+                                            className="w-2 h-2 bg-green-400 rounded-full"
+                                          />
+                                          Auto
+                                        </div>
+                                      </div>
+                                    </CarouselItem>
+                                  ))}
+                                </CarouselContent>
+                                <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              </Carousel>
+                            </div>
+
+                            {/* Project Description */}
+                            <div>
+                              <h4 className="font-semibold mb-3 text-lg">Project Overview</h4>
+                              <p className="text-base leading-relaxed text-muted-foreground">
+                                {project.detailedDescription}
+                              </p>
+                            </div>
+
+                            {/* Technologies Used */}
+                            <div>
+                              <h4 className="font-semibold mb-3">Technologies Used:</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {project.tech.map((tech, techIndex) => (
+                                  <motion.div
+                                    key={techIndex}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: techIndex * 0.1 }}
+                                    viewport={{ once: true }}
+                                  >
+                                    <Badge variant="secondary" className="text-sm px-3 py-1">
+                                      {tech}
+                                    </Badge>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Key Features */}
+                            <div>
+                              <h4 className="font-semibold mb-3">Key Features:</h4>
+                              <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
+                                {project.title.includes("Crest Connect") && (
+                                  <>
+                                    <li>Property and user management dashboard with real-time updates</li>
+                                    <li>Shift scheduling and attendance monitoring with GPS tracking</li>
+                                    <li>Comprehensive request approval system (leave, reimbursement, overtime, uniform)</li>
+                                    <li>Mobile app for field staff with offline capabilities</li>
+                                    <li>Real-time communication between admin and staff with push notifications</li>
+                                    <li>Advanced reporting and analytics dashboard</li>
+                                  </>
+                                )}
+                                {project.title.includes("Gravitrain") && (
+                                  <>
+                                    <li>Multi-user platform supporting Admin, Trainer, and Trainee roles</li>
+                                    <li>Comprehensive trainer profile creation with certification verification</li>
+                                    <li>Advanced session scheduling with calendar integration</li>
+                                    <li>Location-based trainer search with filtering options</li>
+                                    <li>Built-in chat system with file sharing capabilities</li>
+                                    <li>Payment settlement and coupon management for promotional offers</li>
+                                  </>
+                                )}
+                                {project.title.includes("VShips") && (
+                                  <>
+                                    <li>Micro-frontend architecture for scalable development</li>
+                                    <li>Shared component modules across multiple projects</li>
+                                    <li>Cross-project reusability reducing development time by 40%</li>
+                                    <li>Material UI integration for consistent design</li>
+                                    <li>Independent deployment of frontend modules</li>
+                                    <li>Comprehensive user management and reporting dashboards</li>
+                                  </>
+                                )}
+                                {project.title.includes("HRMS") && (
+                                  <>
+                                    <li>Responsive UI components for all device types</li>
+                                    <li>Advanced form handling with Formik and complex validation</li>
+                                    <li>Comprehensive Jest testing infrastructure</li>
+                                    <li>Redux state management for complex data flows</li>
+                                    <li>Employee management and attendance tracking</li>
+                                    <li>Payroll processing and performance evaluation modules</li>
+                                  </>
+                                )}
+                                {project.title.includes("TRYME") && (
+                                  <>
+                                    <li>Modern e-commerce fashion platform with advanced UI</li>
+                                    <li>Square Payment Gateway integration for secure payments</li>
+                                    <li>Advanced product filtering and size recommendations</li>
+                                    <li>Virtual try-on capabilities and wishlist management</li>
+                                    <li>Personalized recommendations based on user behavior</li>
+                                    <li>Comprehensive order tracking and customer support</li>
+                                  </>
+                                )}
+                                {project.title.includes("Medicom") && (
+                                  <>
+                                    <li>Healthcare e-commerce platform with Vue.js and TypeScript</li>
+                                    <li>Stripe payment integration with prescription validation</li>
+                                    <li>Secure prescription upload and healthcare provider integration</li>
+                                    <li>Medication reminders and dosage tracking system</li>
+                                    <li>Compliance with healthcare regulations and data security</li>
+                                    <li>Healthcare professional dashboard for patient management</li>
+                                  </>
+                                )}
+                              </ul>
+                            </div>
+
+                            {/* Project Stats */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t">
+                              <div className="text-center">
+                                <div className="text-2xl font-bold text-primary">
+                                  {project.title.includes("Crest Connect") && "100+"}
+                                  {project.title.includes("Gravitrain") && "500+"}
+                                  {project.title.includes("VShips") && "40%"}
+                                  {project.title.includes("HRMS") && "40%"}
+                                  {project.title.includes("TRYME") && "1000+"}
+                                  {project.title.includes("Medicom") && "99.9%"}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {project.title.includes("Crest Connect") && "Properties Managed"}
+                                  {project.title.includes("Gravitrain") && "Active Users"}
+                                  {project.title.includes("VShips") && "Development Time Saved"}
+                                  {project.title.includes("HRMS") && "UI Issues Reduced"}
+                                  {project.title.includes("TRYME") && "Products Listed"}
+                                  {project.title.includes("Medicom") && "Uptime"}
+                                </div>
+                              </div>
+                              <div className="text-center">
+                                <div className="text-2xl font-bold text-primary">
+                                  {project.title.includes("Crest Connect") && "24/7"}
+                                  {project.title.includes("Gravitrain") && "3"}
+                                  {project.title.includes("VShips") && "10+"}
+                                  {project.title.includes("HRMS") && "1000+"}
+                                  {project.title.includes("TRYME") && "50+"}
+                                  {project.title.includes("Medicom") && "HIPAA"}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {project.title.includes("Crest Connect") && "Support Available"}
+                                  {project.title.includes("Gravitrain") && "User Types"}
+                                  {project.title.includes("VShips") && "Shared Modules"}
+                                  {project.title.includes("HRMS") && "Employees"}
+                                  {project.title.includes("TRYME") && "Brands"}
+                                  {project.title.includes("Medicom") && "Compliant"}
+                                </div>
+                              </div>
+                              <div className="text-center">
+                                <div className="text-2xl font-bold text-primary">
+                                  {project.title.includes("Crest Connect") && "Mobile"}
+                                  {project.title.includes("Gravitrain") && "Real-time"}
+                                  {project.title.includes("VShips") && "Scalable"}
+                                  {project.title.includes("HRMS") && "Responsive"}
+                                  {project.title.includes("TRYME") && "Secure"}
+                                  {project.title.includes("Medicom") && "Type-safe"}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {project.title.includes("Crest Connect") && "First Design"}
+                                  {project.title.includes("Gravitrain") && "Chat System"}
+                                  {project.title.includes("VShips") && "Architecture"}
+                                  {project.title.includes("HRMS") && "Design"}
+                                  {project.title.includes("TRYME") && "Payments"}
+                                  {project.title.includes("Medicom") && "Development"}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </CardContent>
                   </Card>
                 </AnimatedCard>
